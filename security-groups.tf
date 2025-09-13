@@ -2,7 +2,7 @@
 resource "aws_security_group" "database_sg" {
   name        = "${var.project_name}-database-sg"
   description = "Security group for database instances"
-  vpc_id      = aws_vpc.ipecode_vpc.id
+  vpc_id      = aws_vpc.abnmo_svm_vpc.id
 
   # MySQL access
   ingress {

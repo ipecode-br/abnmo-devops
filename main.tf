@@ -26,7 +26,7 @@ locals {
         NODE_ENV           = "development"
         APP_URL            = "https://dev.abnmo.ipecode.com.br"
         APP_ENVIRONMENT    = "development"
-        COOKIE_DOMAIN      = ".abnmo.ipecode.com.br"
+        COOKIE_DOMAIN      = ".${var.api_domain}"
         COOKIE_SECRET      = var.dev_cookie_secret
         JWT_SECRET         = var.dev_jwt_secret
         DB_HOST            = "db-dev.${var.db_domain}"
@@ -43,7 +43,7 @@ locals {
         NODE_ENV           = "homolog"
         APP_URL            = "https://homolog.abnmo.ipecode.com.br"
         APP_ENVIRONMENT    = "homolog"
-        COOKIE_DOMAIN      = ".abnmo.ipecode.com.br"
+        COOKIE_DOMAIN      = ".${var.api_domain}"
         COOKIE_SECRET      = var.homolog_cookie_secret
         JWT_SECRET         = var.homolog_jwt_secret
         DB_HOST            = "db-homolog.${var.db_domain}"
@@ -60,7 +60,7 @@ locals {
         NODE_ENV           = "production"
         APP_URL            = "https://abnmo.ipecode.com.br"
         APP_ENVIRONMENT    = "production"
-        COOKIE_DOMAIN      = ".abnmo.ipecode.com.br"
+        COOKIE_DOMAIN      = ".${var.api_domain}"
         COOKIE_SECRET      = var.prod_cookie_secret
         JWT_SECRET         = var.prod_jwt_secret
         DB_HOST            = "db-prod.${var.db_domain}"

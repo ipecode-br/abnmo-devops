@@ -20,8 +20,8 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
 }
 
 # GitHub Actions role to deploy Lambda functions
-resource "aws_iam_role" "github_oidc_lambda_deploy" {
-  name = "github-actions-lambda-deploy-${var.environment}"
+resource "aws_iam_role" "abnmo_svm_github_oidc_lambda_deploy" {
+  name = "abnmo-svm-github-actions-lambda-deploy-${var.environment}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -63,10 +63,10 @@ resource "aws_iam_policy" "lambda_deploy_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "attach_deploy_policy" {
-  role       = aws_iam_role.github_oidc_lambda_deploy.name
+  role       = aws_iam_role.abnmo_svm_github_oidc_lambda_deploy.name
   policy_arn = aws_iam_policy.lambda_deploy_policy.arn
 }
 
 output "github_oidc_deploy_role_arn" {
-  value = aws_iam_role.github_oidc_lambda_deploy.arn
+  value = aws_iam_role.abnmo_svm_github_oidc_lambda_deploy.arn
 }

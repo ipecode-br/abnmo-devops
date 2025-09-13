@@ -172,7 +172,7 @@ output "database_homolog_instance_id" {
 
 output "vpc_id" {
   description = "VPC ID"
-  value       = aws_vpc.ipecode_vpc.id
+  value       = aws_vpc.abnmo_svm_vpc.id
 }
 
 output "public_subnet_ids" {

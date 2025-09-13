@@ -1,5 +1,5 @@
 # VPC Configuration
-resource "aws_vpc" "ipecode_vpc" {
+resource "aws_vpc" "abnmo_svm_vpc" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
@@ -12,8 +12,8 @@ resource "aws_vpc" "ipecode_vpc" {
 }
 
 # Internet Gateway
-resource "aws_internet_gateway" "ipecode_igw" {
-  vpc_id = aws_vpc.ipecode_vpc.id
+resource "aws_internet_gateway" "abnmo_svm_igw" {
+  vpc_id = aws_vpc.abnmo_svm_vpc.id
 
   tags = {
     Name = "${var.project_name}-internet-gateway"
@@ -22,7 +22,7 @@ resource "aws_internet_gateway" "ipecode_igw" {
 
 # Public Subnets
 resource "aws_subnet" "public_subnet_a" {
-  vpc_id                  = aws_vpc.ipecode_vpc.id
+  vpc_id                  = aws_vpc.abnmo_svm_vpc.id
   cidr_block              = "10.0.1.0/24"
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
@@ -34,7 +34,7 @@ resource "aws_subnet" "public_subnet_a" {
 }
 
 resource "aws_subnet" "public_subnet_b" {
-  vpc_id                  = aws_vpc.ipecode_vpc.id
+  vpc_id                  = aws_vpc.abnmo_svm_vpc.id
   cidr_block              = "10.0.2.0/24"
   availability_zone       = "us-east-1b"
   map_public_ip_on_launch = true
@@ -47,11 +47,11 @@ resource "aws_subnet" "public_subnet_b" {
 
 # Route Table for Public Subnets
 resource "aws_route_table" "public_route_table" {
-  vpc_id = aws_vpc.ipecode_vpc.id
+  vpc_id = aws_vpc.abnmo_svm_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.ipecode_igw.id
+    gateway_id = aws_internet_gateway.abnmo_svm_igw.id
   }
 
   tags = {
