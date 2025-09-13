@@ -25,19 +25,19 @@ variable "db_domain" {
 variable "backend_environments" {
   type        = set(string)
   description = "Set of environments to deploy backend resources for (development, homolog, production)"
-  default     = ["development"]
+  default     = ["development", "homolog"]
 }
 
 variable "database_environments" {
   type        = set(string)
   description = "Set of environments to deploy database instances for (development, homolog, production)"
-  default     = ["development"]
+  default     = ["development", "homolog"]
 }
 
 variable "dns_validation_complete" {
   type        = bool
   description = "Set to true after you've added the DNS validation records to your domain. Phase 1: false (get DNS records), Phase 2: true (deploy everything)"
-  default     = false
+  default     = true
 }
 
 # Database passwords from secrets.auto.tfvars
