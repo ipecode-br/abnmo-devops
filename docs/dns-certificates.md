@@ -1,6 +1,6 @@
-# Two-phase deployment guide
+# ABNMO-SVM Two-phase deployment guide
 
-This deployment requires two phases due to DNS validation requirements.
+This deployment requires two phases due to DNS validation requirements for SSL certificates.
 
 ## Phase 1: Get DNS validation records
 
@@ -25,39 +25,59 @@ You'll see output like:
 dns_validation_records_formatted = {
   "*.abnmo.ipecode.com.br" = {
     "domain" = "*.abnmo.ipecode.com.br"
-    "name"   = "_abc123.abnmo.ipecode.com.br."
+    "name"   = "_1234abcd5678efgh.abnmo.ipecode.com.br."
     "type"   = "CNAME"
-    "value"  = "_xyz789.xlfgrmvvlj.acm-validations.aws."
+    "value"  = "_xyz789abc123.ltfvzjuylp.acm-validations.aws."
   }
-  "api.abnmo.ipecode.com.br" = {
-    "domain" = "api.abnmo.ipecode.com.br"
-    "name"   = "_def456.api.abnmo.ipecode.com.br."
+  "abnmo.ipecode.com.br" = {
+    "domain" = "abnmo.ipecode.com.br"
+    "name"   = "_9876fedc5432ba10.abnmo.ipecode.com.br."
     "type"   = "CNAME" 
-    "value"  = "_uvw012.xlfgrmvvlj.acm-validations.aws."
+    "value"  = "_def456ghi789.ltfvzjuylp.acm-validations.aws."
   }
-  # ... more records
 }
 ```
+
+**Important**: You'll typically see 2 records - one for the wildcard (`*.domain`) and one for the root domain.
 
 ### Step 3: Add DNS records to your domain
 For each record in the output, add a CNAME record to your DNS provider:
 
-- **Name**: Remove your domain from the name (e.g., `abc123` instead of `abc123.abnmo.ipecode.com.br`)
-- **Type**: CNAME
-- **Value**: Use the exact value shown
+**Example for record `_1234abcd5678efgh.abnmo.ipecode.com.br.`:**
+- **Name**: `_1234abcd5678efgh` (remove `.abnmo.ipecode.com.br.` from the name)
+- **Type**: `CNAME`
+- **Value**: `_xyz789abc123.ltfvzjuylp.acm-validations.aws.` (use exact value shown)
+- **TTL**: `300` or `3600` (5 minutes or 1 hour)
+
+**Important notes:**
+- The trailing dot in names/values is optional depending on your DNS provider
+- Some providers automatically append your domain to the name field
+- Record names will be long random strings starting with underscore `_`
 
 ### Step 4: Wait for DNS propagation
-Wait 5-15 minutes, then verify:
+Wait 5-15 minutes, then verify DNS records are active:
+
 ```bash
-dig abc123.abnmo.ipecode.com.br CNAME
+# Check if the DNS record exists (replace with your actual record name)
+dig _abc123.abnmo.ipecode.com.br CNAME
+
+# Alternative verification
+nslookup _abc123.abnmo.ipecode.com.br
 ```
+
+**Troubleshooting DNS issues:**
+- Records can take up to 48 hours to propagate globally
+- Use online DNS checkers like `whatsmydns.net` to verify from different locations
+- Ensure you removed your domain from the record name when adding to DNS
+- Contact your DNS provider if records aren't showing after 24 hours
 
 ## Phase 2: Deploy everything
 
 **Goal**: Enable certificate validation and deploy all resources (lambdas, custom domains, etc.)
 
 ### Step 1: Enable phase 2
-Change the variable in `variables.tf`:
+
+**Method 1: Update variables.tf (permanent change)**
 ```hcl
 variable "dns_validation_complete" {
   type        = bool
@@ -66,11 +86,13 @@ variable "dns_validation_complete" {
 }
 ```
 
-**OR** use command line:
+**Method 2: Command line override (temporary)**
 ```bash
 terraform plan -var="dns_validation_complete=true" -out=tfplan
 terraform apply tfplan
 ```
+
+**Note**: The current default is `true`, so if you're doing Phase 1, you need to set it to `false` first.
 
 ### Step 2: Deploy everything
 ```bash
@@ -90,3 +112,45 @@ This will:
 - **Phase 2**: `dns_validation_complete = true`   → Deploy everything
 
 The variable controls both certificate validation AND custom domain creation in a single switch.
+
+## Troubleshooting
+
+### Common Issues
+
+**Certificate validation stuck "Pending":**
+- DNS records not added correctly
+- DNS propagation not complete (wait 24-48 hours)
+- Record name includes domain when it shouldn't
+
+**"DNS validation failed" error:**
+```bash
+# Check current validation status
+terraform output dns_validation_records_formatted
+
+# Verify DNS records are active
+dig _validation-record.abnmo.ipecode.com.br CNAME
+```
+
+**Phase 2 deployment fails:**
+- Ensure certificate shows "ISSUED" status in AWS Certificate Manager
+- Verify `dns_validation_complete = true` is set
+- Re-run terraform apply after certificate validation completes
+
+**Lambda deployment issues:**
+- Check IAM permissions for deployment
+- Verify S3 backend state file access
+- Ensure all required secrets are in `secrets.auto.tfvars`
+
+### Helpful Commands
+
+```bash
+# Check certificate status in AWS
+aws acm list-certificates --region us-east-1
+
+# View detailed certificate info
+aws acm describe-certificate --certificate-arn <cert-arn>
+
+# Test DNS resolution
+dig api.abnmo.ipecode.com.br
+nslookup api-dev.abnmo.ipecode.com.br
+```
