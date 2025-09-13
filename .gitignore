@@ -1,0 +1,13 @@
+.terraform/
+.ansible/
+.vscode/
+.venv/
+
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+
+/secrets
+
+tfplan
