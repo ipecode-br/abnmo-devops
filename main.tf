@@ -21,10 +21,11 @@ provider "aws" {
 locals {
   backend_configs = {
     development = {
-      cors_allow_origins = ["https://dev.abnmo.ipecode.com.br"]
+      cors_allow_origins = ["https://dev.abnmo.ipecode.com.br", "http://localhost:3000"]
       environment_variables = {
         NODE_ENV           = "development"
         APP_URL            = "https://dev.abnmo.ipecode.com.br"
+        APP_LOCAL_URL      = "http://localhost:3000"
         APP_ENVIRONMENT    = "development"
         COOKIE_DOMAIN      = ".${var.api_domain}"
         COOKIE_SECRET      = var.dev_cookie_secret
@@ -38,10 +39,11 @@ locals {
       }
     }
     homolog = {
-      cors_allow_origins = ["https://homolog.abnmo.ipecode.com.br"]
+      cors_allow_origins = ["https://homolog.abnmo.ipecode.com.br", "http://localhost:3000"]
       environment_variables = {
         NODE_ENV           = "homolog"
         APP_URL            = "https://homolog.abnmo.ipecode.com.br"
+        APP_LOCAL_URL      = "http://localhost:3000"
         APP_ENVIRONMENT    = "homolog"
         COOKIE_DOMAIN      = ".${var.api_domain}"
         COOKIE_SECRET      = var.homolog_cookie_secret
