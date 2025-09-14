@@ -33,10 +33,12 @@ resource "aws_instance" "database" {
   iam_instance_profile   = aws_iam_instance_profile.ssm_instance_profile.name
 
   user_data = base64encode(templatefile("${path.module}/scripts/init-database.sh", {
-    db_name       = local.database_configs[each.key].db_name
-    db_user       = local.database_configs[each.key].db_user
-    db_password   = local.database_configs[each.key].db_password
-    root_password = var.mysql_root_password
+    db_name           = local.database_configs[each.key].db_name
+    db_user           = local.database_configs[each.key].db_user
+    db_password       = local.database_configs[each.key].db_password
+    db_admin_user     = var.db_admin_user
+    db_admin_password = var.db_admin_password
+    root_password     = var.mysql_root_password
   }))
 
   tags = {

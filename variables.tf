@@ -102,3 +102,16 @@ variable "mysql_root_password" {
   description = "MySQL root password"
   sensitive   = true
 }
+
+# Admin user credentials (has full database privileges)
+variable "db_admin_user" {
+  type        = string
+  description = "Database admin username with full privileges"
+  default     = "abnmo_admin"
+}
+
+variable "db_admin_password" {
+  type        = string
+  description = "Database admin password"
+  sensitive   = true
+}
