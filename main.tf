@@ -29,7 +29,7 @@ locals {
         COOKIE_DOMAIN      = ".${var.api_domain}"
         COOKIE_SECRET      = var.dev_cookie_secret
         JWT_SECRET         = var.dev_jwt_secret
-        DB_HOST            = "db-dev.${var.db_domain}"
+        DB_HOST            = "db-development.${var.db_domain}"
         DB_PORT            = "3306"
         DB_DATABASE        = "abnmo_dev"
         DB_USERNAME        = "abnmo_dev"
