@@ -179,3 +179,31 @@ output "public_subnet_ids" {
   description = "Public subnet IDs"
   value       = [aws_subnet.public_subnet_a.id, aws_subnet.public_subnet_b.id]
 }
+
+output "github_actions_setup_guide" {
+  description = "GitHub Actions setup instructions and role ARNs"
+  value = {
+    instructions = "Add the following values to your GitHub repository secrets:"
+    secrets = {
+      AWS_ROLE_TO_ASSUME_DEV     = contains(var.backend_environments, "development") ? module.abnmo_svm_backend["development"].github_oidc_deploy_role_arn : "Development environment not deployed"
+      AWS_ROLE_TO_ASSUME_HOMOLOG = contains(var.backend_environments, "homolog") ? module.abnmo_svm_backend["homolog"].github_oidc_deploy_role_arn : "Homolog environment not deployed"
+      AWS_ROLE_TO_ASSUME_PROD    = contains(var.backend_environments, "production") ? module.abnmo_svm_backend["production"].github_oidc_deploy_role_arn : "Production environment not deployed"
+    }
+  }
+}
+
+# Individual GitHub Actions role outputs for easy access
+output "aws_role_to_assume_dev" {
+  description = "GitHub Actions role ARN for development environment deployments"
+  value       = contains(var.backend_environments, "development") ? module.abnmo_svm_backend["development"].github_oidc_deploy_role_arn : "Development environment not deployed"
+}
+
+output "aws_role_to_assume_homolog" {
+  description = "GitHub Actions role ARN for homolog environment deployments"
+  value       = contains(var.backend_environments, "homolog") ? module.abnmo_svm_backend["homolog"].github_oidc_deploy_role_arn : "Homolog environment not deployed"
+}
+
+output "aws_role_to_assume_prod" {
+  description = "GitHub Actions role ARN for production environment deployments"
+  value       = contains(var.backend_environments, "production") ? module.abnmo_svm_backend["production"].github_oidc_deploy_role_arn : "Production environment not deployed"
+}
