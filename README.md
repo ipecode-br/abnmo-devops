@@ -91,19 +91,19 @@ The EC2 database instances are configured to use AWS Systems Manager (SSM) Sessi
 - Database: `abnmo_dev`
 - User: `abnmo_dev`
 - Password: `dev_db_password` in `secrets.auto.tfvars` file
-- Host: available via `terraform output database_dev_ip`
+- Host: available via `terraform output database_dev_ip` (when database is deployed)
 
 **Homolog environment:**
 - Database: `abnmo_homolog`
 - User: `abnmo_homolog` 
 - Password: `homolog_db_password` in `secrets.auto.tfvars` file
-- Host: available via `terraform output database_homolog_ip`
+- Host: available via `terraform output database_homolog_ip` (when database is deployed)
 
 **Production environment:**
-- Database: `abnmo_prod`
-- User: `abnmo_prod`
+- Database: `prod_db_name` in `secrets.auto.tfvars` file
+- User: `prod_db_user` in `secrets.auto.tfvars` file
 - Password: `prod_db_password` in `secrets.auto.tfvars` file
-- Host: available via `terraform output` (when production database is deployed)
+- Host: available via `terraform output` (when database is deployed)
 
 ### Additional secrets
 

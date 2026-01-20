@@ -25,13 +25,13 @@ variable "db_domain" {
 variable "backend_environments" {
   type        = set(string)
   description = "Set of environments to deploy backend resources for (development, homolog, production)"
-  default     = ["development", "homolog"]
+  default     = ["development"]
 }
 
 variable "database_environments" {
   type        = set(string)
   description = "Set of environments to deploy database instances for (development, homolog, production)"
-  default     = ["development", "homolog"]
+  default     = ["development"]
 }
 
 variable "dns_validation_complete" {
@@ -50,6 +50,18 @@ variable "dev_db_password" {
 variable "homolog_db_password" {
   type        = string
   description = "Homolog database password"
+  sensitive   = true
+}
+
+variable "prod_db_name" {
+  type        = string
+  description = "Production database name"
+  sensitive   = true
+}
+
+variable "prod_db_user" {
+  type        = string
+  description = "Production database user"
   sensitive   = true
 }
 
@@ -97,21 +109,21 @@ variable "prod_jwt_secret" {
   sensitive   = true
 }
 
-variable "mysql_root_password" {
-  type        = string
-  description = "MySQL root password"
-  sensitive   = true
-}
-
 # Admin user credentials (has full database privileges)
 variable "db_admin_user" {
   type        = string
   description = "Database admin username with full privileges"
-  default     = "abnmo_admin"
+  sensitive   = true
 }
 
 variable "db_admin_password" {
   type        = string
   description = "Database admin password"
+  sensitive   = true
+}
+
+variable "mysql_root_password" {
+  type        = string
+  description = "MySQL root password"
   sensitive   = true
 }
