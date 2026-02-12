@@ -24,7 +24,7 @@ locals {
       cors_allow_origins = ["https://staging.abnmo.ipecode.com.br"]
       environment_variables = {
         NODE_ENV           = "development"
-        APP_ENVIRONMENT    = "development"
+        APP_ENVIRONMENT    = "lambda"
         APP_URL            = "https://staging.abnmo.ipecode.com.br"
         COOKIE_DOMAIN      = var.api_domain
         COOKIE_SECRET      = var.dev_cookie_secret
@@ -41,7 +41,7 @@ locals {
       cors_allow_origins = ["https://homolog.abnmo.ipecode.com.br"]
       environment_variables = {
         NODE_ENV           = "homolog"
-        APP_ENVIRONMENT    = "homolog"
+        APP_ENVIRONMENT    = "lambda"
         APP_URL            = "https://homolog.abnmo.ipecode.com.br"
         COOKIE_DOMAIN      = var.api_domain
         COOKIE_SECRET      = var.homolog_cookie_secret
@@ -58,7 +58,7 @@ locals {
       cors_allow_origins = ["https://abnmo.ipecode.com.br"]
       environment_variables = {
         NODE_ENV           = "production"
-        APP_ENVIRONMENT    = "production"
+        APP_ENVIRONMENT    = "lambda"
         APP_URL            = "https://abnmo.ipecode.com.br"
         COOKIE_DOMAIN      = var.api_domain
         COOKIE_SECRET      = var.prod_cookie_secret
