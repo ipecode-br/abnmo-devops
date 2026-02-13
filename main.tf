@@ -15,7 +15,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
 }
 
 locals {
@@ -23,52 +23,64 @@ locals {
     development = {
       cors_allow_origins = ["https://staging.abnmo.ipecode.com.br"]
       environment_variables = {
-        NODE_ENV           = "development"
-        APP_ENVIRONMENT    = "lambda"
-        APP_URL            = "https://staging.abnmo.ipecode.com.br"
-        COOKIE_DOMAIN      = var.api_domain
-        COOKIE_SECRET      = var.dev_cookie_secret
-        JWT_SECRET         = var.dev_jwt_secret
-        DB_HOST            = "db-development.${var.db_domain}"
-        DB_PORT            = "3306"
-        DB_DATABASE        = "abnmo_dev"
-        DB_USERNAME        = "abnmo_dev"
-        DB_PASSWORD        = var.dev_db_password
-        AWS_SES_FROM_EMAIL = "email@domain.com"
+        NODE_ENV                  = "development"
+        APP_ENVIRONMENT           = "lambda"
+        APP_URL                   = "https://staging.abnmo.ipecode.com.br"
+        COOKIE_DOMAIN             = var.api_domain
+        COOKIE_SECRET             = var.dev_cookie_secret
+        JWT_SECRET                = var.dev_jwt_secret
+        ENABLE_EMAILS             = "true"
+        DB_HOST                   = "db-development.${var.db_domain}"
+        DB_PORT                   = "3306"
+        DB_DATABASE               = "abnmo_dev"
+        DB_USERNAME               = "abnmo_dev"
+        DB_PASSWORD               = var.dev_db_password
+        AWS_SES_REGION            = var.aws_region
+        AWS_SES_ACCESS_KEY_ID     = var.aws_ses_access_key_id
+        AWS_SES_SECRET_ACCESS_KEY = var.aws_ses_secret_access_key
+        AWS_SES_FROM_EMAIL        = "tecnologia@abnmo.org"
       }
     }
     homolog = {
       cors_allow_origins = ["https://homolog.abnmo.ipecode.com.br"]
       environment_variables = {
-        NODE_ENV           = "homolog"
-        APP_ENVIRONMENT    = "lambda"
-        APP_URL            = "https://homolog.abnmo.ipecode.com.br"
-        COOKIE_DOMAIN      = var.api_domain
-        COOKIE_SECRET      = var.homolog_cookie_secret
-        JWT_SECRET         = var.homolog_jwt_secret
-        DB_HOST            = "db-homolog.${var.db_domain}"
-        DB_PORT            = "3306"
-        DB_DATABASE        = "abnmo_homolog"
-        DB_USERNAME        = "abnmo_homolog"
-        DB_PASSWORD        = var.homolog_db_password
-        AWS_SES_FROM_EMAIL = "email@domain.com"
+        NODE_ENV                  = "homolog"
+        APP_ENVIRONMENT           = "lambda"
+        APP_URL                   = "https://homolog.abnmo.ipecode.com.br"
+        COOKIE_DOMAIN             = var.api_domain
+        COOKIE_SECRET             = var.homolog_cookie_secret
+        JWT_SECRET                = var.homolog_jwt_secret
+        ENABLE_EMAILS             = "true"
+        DB_HOST                   = "db-homolog.${var.db_domain}"
+        DB_PORT                   = "3306"
+        DB_DATABASE               = "abnmo_homolog"
+        DB_USERNAME               = "abnmo_homolog"
+        DB_PASSWORD               = var.homolog_db_password
+        AWS_SES_REGION            = var.aws_region
+        AWS_SES_ACCESS_KEY_ID     = var.aws_ses_access_key_id
+        AWS_SES_SECRET_ACCESS_KEY = var.aws_ses_secret_access_key
+        AWS_SES_FROM_EMAIL        = "tecnologia@abnmo.org"
       }
     }
     production = {
       cors_allow_origins = ["https://abnmo.ipecode.com.br"]
       environment_variables = {
-        NODE_ENV           = "production"
-        APP_ENVIRONMENT    = "lambda"
-        APP_URL            = "https://abnmo.ipecode.com.br"
-        COOKIE_DOMAIN      = var.api_domain
-        COOKIE_SECRET      = var.prod_cookie_secret
-        JWT_SECRET         = var.prod_jwt_secret
-        DB_HOST            = "db-prod.${var.db_domain}"
-        DB_PORT            = "3306"
-        DB_DATABASE        = var.prod_db_name
-        DB_USERNAME        = var.prod_db_user
-        DB_PASSWORD        = var.prod_db_password
-        AWS_SES_FROM_EMAIL = "email@domain.com"
+        NODE_ENV                  = "production"
+        APP_ENVIRONMENT           = "lambda"
+        APP_URL                   = "https://abnmo.ipecode.com.br"
+        COOKIE_DOMAIN             = var.api_domain
+        COOKIE_SECRET             = var.prod_cookie_secret
+        JWT_SECRET                = var.prod_jwt_secret
+        ENABLE_EMAILS             = "true"
+        DB_HOST                   = "db-prod.${var.db_domain}"
+        DB_PORT                   = "3306"
+        DB_DATABASE               = var.prod_db_name
+        DB_USERNAME               = var.prod_db_user
+        DB_PASSWORD               = var.prod_db_password
+        AWS_SES_REGION            = var.aws_region
+        AWS_SES_ACCESS_KEY_ID     = var.aws_ses_access_key_id
+        AWS_SES_SECRET_ACCESS_KEY = var.aws_ses_secret_access_key
+        AWS_SES_FROM_EMAIL        = "tecnologia@abnmo.org"
       }
     }
   }

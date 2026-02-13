@@ -4,12 +4,6 @@ variable "project_name" {
   default     = "abnmo-svm"
 }
 
-variable "aws_region" {
-  type        = string
-  description = "AWS region"
-  default     = "us-east-1"
-}
-
 variable "api_domain" {
   type        = string
   description = "Base domain for API endpoints (e.g., abnmo.ipecode.com.br)"
@@ -109,7 +103,7 @@ variable "prod_jwt_secret" {
   sensitive   = true
 }
 
-# Admin user credentials (has full database privileges)
+# Database admin user credentials (has full database privileges)
 variable "db_admin_user" {
   type        = string
   description = "Database admin username with full privileges"
@@ -125,5 +119,24 @@ variable "db_admin_password" {
 variable "mysql_root_password" {
   type        = string
   description = "MySQL root password"
+  sensitive   = true
+}
+
+# AWS variables and secrets from secrets.auto.tfvars
+variable "aws_region" {
+  type        = string
+  description = "AWS region"
+  default     = "us-east-1"
+}
+
+variable "aws_ses_access_key_id" {
+  type        = string
+  description = "Access key for AWS SES"
+  sensitive   = true
+}
+
+variable "aws_ses_secret_access_key" {
+  type        = string
+  description = "Secret access key for AWS SES"
   sensitive   = true
 }
