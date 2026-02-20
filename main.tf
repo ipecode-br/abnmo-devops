@@ -104,3 +104,35 @@ module "abnmo_svm_backend" {
   cors_allow_origins       = local.backend_configs[each.key].cors_allow_origins
   environment_variables    = local.backend_configs[each.key].environment_variables
 }
+
+module "ses_abnmo" {
+  source = "./modules/ses"
+
+  domain     = "abnmo.org"
+  manage_dns = false
+
+  email_identities = [
+    "julianosill.arg@gmail.com",
+    "tecnologia@abnmo.org"
+  ]
+}
+
+import {
+  to = module.ses_abnmo.aws_ses_domain_identity.this
+  id = "abnmo.org"
+}
+
+import {
+  to = module.ses_abnmo.aws_ses_domain_dkim.this[0]
+  id = "abnmo.org"
+}
+
+import {
+  to = module.ses_abnmo.aws_ses_email_identity.emails["tecnologia@abnmo.org"]
+  id = "tecnologia@abnmo.org"
+}
+
+import {
+  to = module.ses_abnmo.aws_ses_email_identity.emails["julianosill.arg@gmail.com"]
+  id = "julianosill.arg@gmail.com"
+}

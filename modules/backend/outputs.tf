@@ -1,4 +1,6 @@
-# Lambda
+############
+## Lambda ##
+############
 output "lambda_function_name" {
   description = "Name of the Lambda function"
   value       = aws_lambda_function.this.function_name
@@ -19,7 +21,9 @@ output "lambda_invoke_arn" {
   value       = aws_lambda_function.this.invoke_arn
 }
 
-# API Gateway
+#################
+## API Gateway ##
+#################
 output "api_gateway_url" {
   description = "URL of the API Gateway"
   value       = aws_api_gateway_stage.this.invoke_url
@@ -40,7 +44,9 @@ output "api_gateway_stage_name" {
   value       = aws_api_gateway_stage.this.stage_name
 }
 
-# Custom Domain
+###################
+## Custom Domain ##
+###################
 output "custom_domain_name" {
   description = "Custom domain name for the API Gateway"
   value       = var.custom_domain_name != null ? aws_api_gateway_domain_name.api[0].domain_name : null
