@@ -25,6 +25,7 @@ locals {
       environment_variables = {
         NODE_ENV                  = "development"
         APP_ENVIRONMENT           = "lambda"
+        MAINTENANCE               = "false"
         APP_URL                   = "https://staging.abnmo.ipecode.com.br"
         COOKIE_DOMAIN             = var.api_domain
         COOKIE_SECRET             = var.dev_cookie_secret
@@ -46,6 +47,7 @@ locals {
       environment_variables = {
         NODE_ENV                  = "homolog"
         APP_ENVIRONMENT           = "lambda"
+        MAINTENANCE               = "false"
         APP_URL                   = "https://homolog.abnmo.ipecode.com.br"
         COOKIE_DOMAIN             = var.api_domain
         COOKIE_SECRET             = var.homolog_cookie_secret
@@ -67,6 +69,7 @@ locals {
       environment_variables = {
         NODE_ENV                  = "production"
         APP_ENVIRONMENT           = "lambda"
+        MAINTENANCE               = "false"
         APP_URL                   = "https://abnmo.ipecode.com.br"
         COOKIE_DOMAIN             = var.api_domain
         COOKIE_SECRET             = var.prod_cookie_secret
