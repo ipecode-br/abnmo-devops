@@ -104,3 +104,15 @@ module "abnmo_svm_backend" {
   cors_allow_origins       = local.backend_configs[each.key].cors_allow_origins
   environment_variables    = local.backend_configs[each.key].environment_variables
 }
+
+module "ses_abnmo" {
+  source = "./modules/ses"
+
+  domain     = "abnmo.org"
+  manage_dns = false
+
+  email_identities = [
+    "julianosill.arg@gmail.com",
+    "tecnologia@abnmo.org"
+  ]
+}
