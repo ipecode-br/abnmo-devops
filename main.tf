@@ -116,23 +116,3 @@ module "ses_abnmo" {
     "tecnologia@abnmo.org"
   ]
 }
-
-import {
-  to = module.ses_abnmo.aws_ses_domain_identity.this
-  id = "abnmo.org"
-}
-
-import {
-  to = module.ses_abnmo.aws_ses_domain_dkim.this[0]
-  id = "abnmo.org"
-}
-
-import {
-  to = module.ses_abnmo.aws_ses_email_identity.emails["tecnologia@abnmo.org"]
-  id = "tecnologia@abnmo.org"
-}
-
-import {
-  to = module.ses_abnmo.aws_ses_email_identity.emails["julianosill.arg@gmail.com"]
-  id = "julianosill.arg@gmail.com"
-}
