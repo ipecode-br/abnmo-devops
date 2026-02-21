@@ -56,3 +56,11 @@ output "custom_domain_target" {
   description = "Target domain name for CNAME record"
   value       = var.custom_domain_name != null ? aws_api_gateway_domain_name.api[0].regional_domain_name : null
 }
+
+#########
+## SNS ##
+#########
+output "sns_topic_arn" {
+  description = "ARN do tópico SNS de alertas de budget"
+  value       = aws_sns_topic.budget_alerts.arn
+}
