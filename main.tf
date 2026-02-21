@@ -106,6 +106,10 @@ module "abnmo_svm_backend" {
   github_oidc_provider_arn = aws_iam_openid_connect_provider.github.arn
   cors_allow_origins       = local.backend_configs[each.key].cors_allow_origins
   environment_variables    = local.backend_configs[each.key].environment_variables
+
+  # novas variáveis de budget
+  budget_limit  = var.budget_limit
+  budget_emails = var.budget_emails
 }
 
 module "ses_abnmo" {

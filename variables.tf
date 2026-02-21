@@ -140,3 +140,15 @@ variable "aws_ses_secret_access_key" {
   description = "Secret access key for AWS SES"
   sensitive   = true
 }
+
+# budget variables
+variable "budget_limit" {
+  description = "Limite do budget em USD"
+  type        = number
+  default     = 40
+}
+
+variable "budget_emails" {
+  description = "E-mails para alertas de budget"
+  type        = list(string)
+}

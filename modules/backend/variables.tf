@@ -97,3 +97,18 @@ variable "github_oidc_provider_arn" {
   type        = string
   description = "ARN of the GitHub OIDC provider"
 }
+
+############
+## Budget ##
+############
+
+variable "budget_limit" {
+  description = "Limite do budget em USD"
+  type        = number
+  default     = 20
+}
+
+variable "budget_emails" {
+  description = "E-mails para alertas de budget"
+  type        = list(string)
+}
