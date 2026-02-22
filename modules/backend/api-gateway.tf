@@ -64,22 +64,50 @@ resource "aws_lambda_permission" "api_gw" {
 
 # API Gateway Deployment
 resource "aws_api_gateway_deployment" "this" {
+  rest_api_id = aws_api_gateway_rest_api.this.id
+
   depends_on = [
+    # Lambda integrations
     aws_api_gateway_integration.lambda,
     aws_api_gateway_integration.lambda_root,
+
+    # OPTIONS methods
+    aws_api_gateway_method.options_proxy,
+    aws_api_gateway_method.options_root,
+
+    # OPTIONS integrations
     aws_api_gateway_integration.options_proxy,
     aws_api_gateway_integration.options_root,
-  ]
 
-  rest_api_id = aws_api_gateway_rest_api.this.id
+    # Method responses (CRITICAL)
+    aws_api_gateway_method_response.options_proxy,
+    aws_api_gateway_method_response.options_root,
+
+    # Integration responses (CRITICAL)
+    aws_api_gateway_integration_response.options_proxy,
+    aws_api_gateway_integration_response.options_root,
+  ]
 
   triggers = {
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.proxy.id,
+
       aws_api_gateway_method.proxy.id,
       aws_api_gateway_method.proxy_root.id,
+      aws_api_gateway_method.options_proxy.id,
+      aws_api_gateway_method.options_root.id,
+
       aws_api_gateway_integration.lambda.id,
       aws_api_gateway_integration.lambda_root.id,
+      aws_api_gateway_integration.options_proxy.id,
+      aws_api_gateway_integration.options_root.id,
+
+      aws_api_gateway_method_response.options_proxy.id,
+      aws_api_gateway_method_response.options_root.id,
+
+      aws_api_gateway_integration_response.options_proxy.id,
+      aws_api_gateway_integration_response.options_root.id,
+
       aws_lambda_function.this.source_code_hash,
     ]))
   }
