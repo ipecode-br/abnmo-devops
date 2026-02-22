@@ -17,8 +17,8 @@ variable "lambda_handler" {
 
 variable "lambda_runtime" {
   type        = string
-  description = "Lambda runtime (e.g., nodejs18.x, python3.11)"
-  default     = "nodejs20.x"
+  description = "Lambda runtime (e.g., nodejs18.x)"
+  default     = "nodejs22.x"
 }
 
 variable "timeout" {
