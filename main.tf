@@ -75,7 +75,7 @@ locals {
         COOKIE_SECRET             = var.prod_cookie_secret
         JWT_SECRET                = var.prod_jwt_secret
         ENABLE_EMAILS             = "false"
-        DB_HOST                   = "db-prod.${var.db_domain}"
+        DB_HOST                   = "db-production.${var.db_domain}"
         DB_PORT                   = "3306"
         DB_DATABASE               = var.prod_db_name
         DB_USERNAME               = var.prod_db_user
