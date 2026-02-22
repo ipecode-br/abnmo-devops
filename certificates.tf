@@ -1,6 +1,6 @@
 # Wildcard ACM Certificate for all API subdomains
 resource "aws_acm_certificate" "wildcard_api" {
-  domain_name       = "*.${var.api_domain}"
+  domain_name       = "*.${var.app_domain}"
   validation_method = "DNS"
 
   lifecycle {

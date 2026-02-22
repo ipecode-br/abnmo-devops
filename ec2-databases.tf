@@ -15,8 +15,8 @@ locals {
     }
     production = {
       subnet_id   = aws_subnet.public_subnet_a.id
-      db_name     = "abnmo_prod"
-      db_user     = "abnmo_admin"
+      db_name     = var.prod_db_name
+      db_user     = var.prod_db_user
       db_password = var.prod_db_password
     }
   }

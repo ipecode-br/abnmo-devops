@@ -114,9 +114,9 @@ output "dns_validation_records_formatted" {
   }
 }
 
-output "api_domain" {
-  description = "Base API domain configured"
-  value       = var.api_domain
+output "app_domain" {
+  description = "Base APP domain configured"
+  value       = var.app_domain
 }
 
 output "db_domain" {

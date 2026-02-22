@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "abnmo-svm-iac-bucket"
+    bucket  = "svm-abnmo-iac-bucket"
     key     = "state/terraform.tfstate"
     region  = "us-east-1"
     encrypt = true
@@ -21,16 +21,16 @@ provider "aws" {
 locals {
   backend_configs = {
     development = {
-      cors_allow_origins = ["https://staging.abnmo.ipecode.com.br"]
+      cors_allow_origins = ["https://staging.${var.app_domain}"]
       environment_variables = {
         NODE_ENV                  = "development"
         APP_ENVIRONMENT           = "lambda"
         MAINTENANCE               = "false"
-        APP_URL                   = "https://staging.abnmo.ipecode.com.br"
-        COOKIE_DOMAIN             = var.api_domain
+        APP_URL                   = "https://staging.${var.app_domain}"
+        COOKIE_DOMAIN             = var.app_domain
         COOKIE_SECRET             = var.dev_cookie_secret
         JWT_SECRET                = var.dev_jwt_secret
-        ENABLE_EMAILS             = "true"
+        ENABLE_EMAILS             = "false"
         DB_HOST                   = "db-development.${var.db_domain}"
         DB_PORT                   = "3306"
         DB_DATABASE               = "abnmo_dev"
@@ -43,16 +43,16 @@ locals {
       }
     }
     homolog = {
-      cors_allow_origins = ["https://homolog.abnmo.ipecode.com.br"]
+      cors_allow_origins = ["https://homolog.${var.app_domain}"]
       environment_variables = {
         NODE_ENV                  = "homolog"
         APP_ENVIRONMENT           = "lambda"
         MAINTENANCE               = "false"
-        APP_URL                   = "https://homolog.abnmo.ipecode.com.br"
-        COOKIE_DOMAIN             = var.api_domain
+        APP_URL                   = "https://homolog.${var.app_domain}"
+        COOKIE_DOMAIN             = var.app_domain
         COOKIE_SECRET             = var.homolog_cookie_secret
         JWT_SECRET                = var.homolog_jwt_secret
-        ENABLE_EMAILS             = "true"
+        ENABLE_EMAILS             = "false"
         DB_HOST                   = "db-homolog.${var.db_domain}"
         DB_PORT                   = "3306"
         DB_DATABASE               = "abnmo_homolog"
@@ -65,16 +65,16 @@ locals {
       }
     }
     production = {
-      cors_allow_origins = ["https://abnmo.ipecode.com.br"]
+      cors_allow_origins = ["https://${var.app_domain}"]
       environment_variables = {
         NODE_ENV                  = "production"
         APP_ENVIRONMENT           = "lambda"
         MAINTENANCE               = "false"
-        APP_URL                   = "https://abnmo.ipecode.com.br"
-        COOKIE_DOMAIN             = var.api_domain
+        APP_URL                   = "https://${var.app_domain}"
+        COOKIE_DOMAIN             = var.app_domain
         COOKIE_SECRET             = var.prod_cookie_secret
         JWT_SECRET                = var.prod_jwt_secret
-        ENABLE_EMAILS             = "true"
+        ENABLE_EMAILS             = "false"
         DB_HOST                   = "db-prod.${var.db_domain}"
         DB_PORT                   = "3306"
         DB_DATABASE               = var.prod_db_name
@@ -89,9 +89,9 @@ locals {
   }
 
   domain_mappings = {
-    development = "api-dev.${var.api_domain}"
-    homolog     = "api-homolog.${var.api_domain}"
-    production  = "api.${var.api_domain}"
+    development = "api-dev.${var.app_domain}"
+    homolog     = "api-homolog.${var.app_domain}"
+    production  = "api.${var.app_domain}"
   }
 }
 
@@ -115,7 +115,6 @@ module "ses_abnmo" {
   manage_dns = false
 
   email_identities = [
-    "julianosill.arg@gmail.com",
-    "tecnologia@abnmo.org"
+    "svm@abnmo.org"
   ]
 }

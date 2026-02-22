@@ -1,6 +1,6 @@
 # Copilot Instructions
 
-When open a new terminal window, always run `export AWS_PROFILE=juliano-ipecode ` to set the correct AWS profile.
+When open a new terminal window, always run `export AWS_PROFILE=juliano-abnmo ` to set the correct AWS profile.
 
 ## Writing Guidelines
 

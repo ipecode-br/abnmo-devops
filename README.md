@@ -46,27 +46,27 @@ This allows you to:
 
 ## SSL certificate management
 
-This setup uses a **single wildcard certificate** (`*.abnmo.ipecode.com.br`) that covers all API subdomains. This approach:
+This setup uses a **single wildcard certificate** (`*.svm.abnmo.org`) that covers all API subdomains. This approach:
 
 ✅ **Eliminates slow deployments** - No need to create/validate certificates for each environment  
 ✅ **Simplifies DNS management** - Only one DNS validation record needed  
 ✅ **Reduces costs** - Single certificate instead of multiple  
-✅ **Easier domain changes** - Update domain in one place (`api_domain` variable)
+✅ **Easier domain changes** - Update domain in one place (`app_domain` variable)
 
 ### Current certificate coverage
 
 The wildcard certificate covers:
-- `api.abnmo.ipecode.com.br` (production)
-- `api-dev.abnmo.ipecode.com.br` (development)
-- `api-homolog.abnmo.ipecode.com.br` (homolog)
-- Any future `*.abnmo.ipecode.com.br` subdomain
+- `api.svm.abnmo.org` (production)
+- `api-dev.svm.abnmo.org` (development)
+- `api-homolog.svm.abnmo.org` (homolog)
+- Any future `*.svm.abnmo.org` subdomain
 
 ### Changing the API domain
 
-To use a different domain, update the `api_domain` and `db_domain` variables in `variables.tf`:
+To use a different domain, update the `app_domain` and `db_domain` variables in `variables.tf`:
 
 ```hcl
-variable "api_domain" {
+variable "app_domain" {
   type        = string
   description = "Base domain for API endpoints"
   default     = "your-new-domain.com"  # Change this

@@ -4,28 +4,28 @@ variable "project_name" {
   default     = "abnmo-svm"
 }
 
-variable "api_domain" {
+variable "app_domain" {
   type        = string
-  description = "Base domain for API endpoints (e.g., abnmo.ipecode.com.br)"
-  default     = "abnmo.ipecode.com.br"
+  description = "Base domain for API endpoints (e.g., svm.abnmo.org)"
+  default     = "svm.abnmo.org"
 }
 
 variable "db_domain" {
   type        = string
-  description = "Base domain for database endpoints (e.g., abnmo.ipecode.com.br)"
-  default     = "abnmo.ipecode.com.br"
+  description = "Base domain for database endpoints (e.g., svm.abnmo.org)"
+  default     = "svm.abnmo.org"
 }
 
 variable "backend_environments" {
   type        = set(string)
   description = "Set of environments to deploy backend resources for (development, homolog, production)"
-  default     = ["development"]
+  default     = ["production", "development"]
 }
 
 variable "database_environments" {
   type        = set(string)
   description = "Set of environments to deploy database instances for (development, homolog, production)"
-  default     = ["development"]
+  default     = ["production", "development"]
 }
 
 variable "dns_validation_complete" {

@@ -23,15 +23,15 @@ terraform output dns_validation_records_formatted
 You'll see output like:
 ```
 dns_validation_records_formatted = {
-  "*.abnmo.ipecode.com.br" = {
-    "domain" = "*.abnmo.ipecode.com.br"
-    "name"   = "_1234abcd5678efgh.abnmo.ipecode.com.br."
+  "*.svm.abnmo.org" = {
+    "domain" = "*.svm.abnmo.org"
+    "name"   = "_1234abcd5678efgh.svm.abnmo.org."
     "type"   = "CNAME"
     "value"  = "_xyz789abc123.ltfvzjuylp.acm-validations.aws."
   }
-  "abnmo.ipecode.com.br" = {
-    "domain" = "abnmo.ipecode.com.br"
-    "name"   = "_9876fedc5432ba10.abnmo.ipecode.com.br."
+  "svm.abnmo.org" = {
+    "domain" = "svm.abnmo.org"
+    "name"   = "_9876fedc5432ba10.svm.abnmo.org."
     "type"   = "CNAME" 
     "value"  = "_def456ghi789.ltfvzjuylp.acm-validations.aws."
   }
@@ -43,8 +43,8 @@ dns_validation_records_formatted = {
 ### Step 3: Add DNS records to your domain
 For each record in the output, add a CNAME record to your DNS provider:
 
-**Example for record `_1234abcd5678efgh.abnmo.ipecode.com.br.`:**
-- **Name**: `_1234abcd5678efgh` (remove `.abnmo.ipecode.com.br.` from the name)
+**Example for record `_1234abcd5678efgh.svm.abnmo.org.`:**
+- **Name**: `_1234abcd5678efgh` (remove `.svm.abnmo.org.` from the name)
 - **Type**: `CNAME`
 - **Value**: `_xyz789abc123.ltfvzjuylp.acm-validations.aws.` (use exact value shown)
 - **TTL**: `300` or `3600` (5 minutes or 1 hour)
@@ -59,10 +59,10 @@ Wait 5-15 minutes, then verify DNS records are active:
 
 ```bash
 # Check if the DNS record exists (replace with your actual record name)
-dig _abc123.abnmo.ipecode.com.br CNAME
+dig _abc123.svm.abnmo.org CNAME
 
 # Alternative verification
-nslookup _abc123.abnmo.ipecode.com.br
+nslookup _abc123.svm.abnmo.org
 ```
 
 **Troubleshooting DNS issues:**
@@ -128,7 +128,7 @@ The variable controls both certificate validation AND custom domain creation in 
 terraform output dns_validation_records_formatted
 
 # Verify DNS records are active
-dig _validation-record.abnmo.ipecode.com.br CNAME
+dig _validation-record.svm.abnmo.org CNAME
 ```
 
 **Phase 2 deployment fails:**
@@ -151,6 +151,6 @@ aws acm list-certificates --region us-east-1
 aws acm describe-certificate --certificate-arn <cert-arn>
 
 # Test DNS resolution
-dig api.abnmo.ipecode.com.br
-nslookup api-dev.abnmo.ipecode.com.br
+dig api.svm.abnmo.org
+nslookup api-dev.svm.abnmo.org
 ```
