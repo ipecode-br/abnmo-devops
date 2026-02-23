@@ -1,7 +1,3 @@
-#########
-## SES ## 
-#########
-
 variable "domain" {
   description = "Domínio para SES"
   type        = string
@@ -14,22 +10,16 @@ variable "manage_dns" {
   default     = false
 }
 
-#variable "zone_id" {
-#  description = "Route53 Zone ID (obrigatório se manage_dns = true)"
-#  type        = string
-#  default     = null
-#}
-
 variable "zone_id" {
+    description = "Route53 Zone ID (mandatory if manage_dns = true)"
   type    = string
   default = null
 
   validation {
     condition     = var.manage_dns == false || var.zone_id != null
-    error_message = "zone_id é obrigatório quando manage_dns = true"
+    error_message = "zone_id is mandatory when manage_dns = true"
   }
 }
-
 
 variable "enable_dkim" {
   type    = bool

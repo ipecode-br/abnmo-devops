@@ -39,7 +39,7 @@ locals {
         AWS_SES_REGION            = var.aws_region
         AWS_SES_ACCESS_KEY_ID     = var.aws_ses_access_key_id
         AWS_SES_SECRET_ACCESS_KEY = var.aws_ses_secret_access_key
-        AWS_SES_FROM_EMAIL        = "tecnologia@abnmo.org"
+        AWS_SES_FROM_EMAIL        = var.aws_ses_sender
       }
     }
     homolog = {
@@ -61,7 +61,7 @@ locals {
         AWS_SES_REGION            = var.aws_region
         AWS_SES_ACCESS_KEY_ID     = var.aws_ses_access_key_id
         AWS_SES_SECRET_ACCESS_KEY = var.aws_ses_secret_access_key
-        AWS_SES_FROM_EMAIL        = "tecnologia@abnmo.org"
+        AWS_SES_FROM_EMAIL        = var.aws_ses_sender
       }
     }
     production = {
@@ -83,7 +83,7 @@ locals {
         AWS_SES_REGION            = var.aws_region
         AWS_SES_ACCESS_KEY_ID     = var.aws_ses_access_key_id
         AWS_SES_SECRET_ACCESS_KEY = var.aws_ses_secret_access_key
-        AWS_SES_FROM_EMAIL        = "tecnologia@abnmo.org"
+        AWS_SES_FROM_EMAIL        = var.aws_ses_sender
       }
     }
   }
@@ -95,7 +95,7 @@ locals {
   }
 }
 
-module "ses_abnmo" {
+module "abnmo_svm_backend" {
   for_each = var.backend_environments
 
   source      = "./modules/backend"
@@ -111,13 +111,13 @@ module "ses_abnmo" {
   budget_emails = var.budget_emails
 }
 
-module "abnmo_svm_ses" {
+module "ses_abnmo" {
   source = "./modules/ses"
 
   domain     = "abnmo.org"
   manage_dns = false
 
   email_identities = [
-    "svm@abnmo.org"
+    var.aws_ses_sender
   ]
 }

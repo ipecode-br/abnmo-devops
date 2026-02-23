@@ -100,7 +100,7 @@ variable "github_oidc_provider_arn" {
 
 # Budget
 variable "budget_limit" {
-  description = "Budget limite in USD"
+  description = "Budget limit in USD"
   type        = number
   default     = 20
 }

@@ -129,6 +129,12 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "aws_ses_sender" {
+  type        = string
+  description = "SES sender e-mail"
+  default     = "svm@abnmo.org"
+}
+
 variable "aws_ses_access_key_id" {
   type        = string
   description = "Access key for AWS SES"
@@ -143,9 +149,9 @@ variable "aws_ses_secret_access_key" {
 
 # Budget variables
 variable "budget_limit" {
-  description = "Budget limite in USD"
+  description = "Budget limit in USD"
   type        = number
-  default     = 40
+  default     = 30
 }
 
 variable "budget_emails" {

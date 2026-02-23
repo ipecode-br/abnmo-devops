@@ -1,6 +1,3 @@
-#########
-## SES ##
-#########
 output "domain_verification_record" {
   value = {
     name  = "_amazonses.${var.domain}"
