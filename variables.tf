@@ -141,14 +141,15 @@ variable "aws_ses_secret_access_key" {
   sensitive   = true
 }
 
-# budget variables
+# Budget variables
 variable "budget_limit" {
-  description = "Limite do budget em USD"
+  description = "Budget limite in USD"
   type        = number
   default     = 40
 }
 
 variable "budget_emails" {
-  description = "E-mails para alertas de budget"
+  description = "E-mails for budget alerts"
   type        = list(string)
+  default     = ["sill.juliano@gmail.com"]
 }

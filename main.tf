@@ -95,7 +95,7 @@ locals {
   }
 }
 
-module "abnmo_svm_backend" {
+module "ses_abnmo" {
   for_each = var.backend_environments
 
   source      = "./modules/backend"
@@ -107,12 +107,11 @@ module "abnmo_svm_backend" {
   cors_allow_origins       = local.backend_configs[each.key].cors_allow_origins
   environment_variables    = local.backend_configs[each.key].environment_variables
 
-  # novas variáveis de budget
   budget_limit  = var.budget_limit
   budget_emails = var.budget_emails
 }
 
-module "ses_abnmo" {
+module "abnmo_svm_ses" {
   source = "./modules/ses"
 
   domain     = "abnmo.org"
