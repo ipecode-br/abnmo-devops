@@ -157,5 +157,5 @@ variable "budget_limit" {
 variable "budget_emails" {
   description = "E-mails for budget alerts"
   type        = list(string)
-  default     = ["sill.juliano@gmail.com"]
+  default     = ["santosnune@gmail.com", "caionestudo@gmail.com", "sill.juliano@gmail.com"]
 }
