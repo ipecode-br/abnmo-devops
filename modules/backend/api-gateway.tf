@@ -117,11 +117,23 @@ resource "aws_api_gateway_deployment" "this" {
   }
 }
 
-# API Gateway Stage
+# API Gateway stage
 resource "aws_api_gateway_stage" "this" {
   deployment_id = aws_api_gateway_deployment.this.id
   rest_api_id   = aws_api_gateway_rest_api.this.id
   stage_name    = var.environment
+}
+
+# API Gateway throttling settings
+resource "aws_api_gateway_method_settings" "global_throttle" {
+  rest_api_id = aws_api_gateway_rest_api.this.id
+  stage_name  = aws_api_gateway_stage.this.stage_name
+  method_path = "*/*"
+
+  settings {
+    throttling_rate_limit  = 20
+    throttling_burst_limit = 40
+  }
 }
 
 # API Gateway Custom Domain Name
@@ -149,7 +161,6 @@ resource "aws_api_gateway_base_path_mapping" "api" {
   stage_name  = aws_api_gateway_stage.this.stage_name
   domain_name = aws_api_gateway_domain_name.api[0].domain_name
 }
-
 
 # CORS Configuration for OPTIONS method on proxy resource
 resource "aws_api_gateway_method" "options_proxy" {
