@@ -129,6 +129,19 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+# Emails
+variable "email_provider" {
+  type        = string
+  description = "E-mail provider (ses or resend)"
+  default     = "ses"
+}
+
+variable "resend_key" {
+  type        = string
+  description = "Resend API key"
+  sensitive   = true
+}
+
 variable "aws_ses_sender" {
   type        = string
   description = "SES sender e-mail"
